@@ -1,0 +1,24 @@
+<%@ Language=VBScript %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VBScript 예시</title>
+</head>
+<body>
+  <%
+    Dim message
+    message = "안녕하세요, VBScript! 이 메시지는 서버에서 실행됩니다."
+
+    Dim i, sum
+    sum = 0
+    For i = 1 To 10
+      sum = sum + i
+    Next
+  %>
+  <h1><%=message%></h1>
+  <p>1부터 10까지의 합계: <%=sum%></p>
+  <h4>이것도 하드코딩해야 하나요??</h4>
+
+
+</body>
+</html>

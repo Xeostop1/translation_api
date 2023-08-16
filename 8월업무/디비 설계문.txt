@@ -1,0 +1,36 @@
+나는 https://www.gvg.co.kr/#3 사이트를 번역하는 웹사이트를 만들고 싶어
+번역해야 하는 언어는 한국어 영어 중국어 일본어야 
+https://www.gvg.co.kr/#3에서 정보를 받아오면 나는 다른 사이트에서 
+해당언어를 셀렉터 버튼으로 골라서 번역하여 볼 수 있게 만들고 싶어
+
+구글번역 api를 사용할거고, 서버는 파이썬, 제이쿼리를 이용해서 비동기처리를 해줘
+디비는 id, brand, description, price, w_date을 사용할 거야
+한번 번역된 정보는 db에 description 넣고 한번 로딩 된 후에는 db에서 불러올 꺼야 
+이렇게 하려면 나는 db구조를 어떻게 만드는게 좋을까?
+
+========================================
+테이블 구조 보기 
+DESCRIBE products;
+
+
+-- 데이터베이스 생성
+CREATE DATABASE translations_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+-- 데이터베이스 사용
+USE translations_db;
+
+-- 테이블 생성
+CREATE TABLE products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  brand VARCHAR(255) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  w_date DATE NOT NULL,
+  description_kr TEXT,
+  description_en TEXT,
+  description_cn TEXT,
+  description_jp TEXT,
+  last_updated_kr DATETIME,
+  last_updated_en DATETIME,
+  last_updated_cn DATETIME,
+  last_updated_jp DATETIME
+);
