@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>날씨 정보</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+  </style>
+  <script src="/client.js"></script>
+</head>
+<body>
+  <h1>날씨 정보</h1>
+  <div id="forecast"></div>
+  <select id="language-select" onchange="fetchWeatherForecast()">
+    <option value="ko">한국어</option>
+    <option value="en">English</option>
+    <option value="ja">日本語</option>
+    <option value="zh">中文</option>
+  </select>
+  <div id="weather-forecast"></div>
+
+  <script>
+    async function fetchWeatherForecast() {
+      const languageSelect = document.getElementById('language-select');
+      const lang = languageSelect.value;
+      const apiUrl = `/weather-forecast/${lang}`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+          const data = await response.json();
+          displayData(data);
+        } else {
+          console.error('API 요청 상태 오류', response.status);
+        }
+      } catch (error) {
+        console.error('API 요청 오류', error.message);
+      }
+    }
+
+    async function fetchWeatherForecast() {
+      try {
+        const response = await axios.get('/api/weather');
+        const data = response.data;
+    
+        if (!data.error) {
+          const dataArray = Object.values(data.data);
+          dataArray.forEach((item) => {
+            const p = document.createElement('p');
+            p.innerHTML = item.replace(/\n/g, '<br/>');
+            weatherForecast.appendChild(p);
+          });
+        } else {
+          weatherForecast.innerHTML = '<p>날씨 정보를 불러오는데 실패했습니다.</p>';
+        }
+      } catch (error) {
+        console.error('API 요청 오류', error);
+        weatherForecast.innerHTML = '<p>날씨 정보를 불러오는데 실패했습니다.</p>';
+      }
+    }
+
+    // 페이지 로드 시 한 번 날씨 정보를 가져옵니다.
+    fetchWeatherForecast();
+  </script>
+</body>
+</html>
