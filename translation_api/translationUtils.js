@@ -8,21 +8,18 @@ const PAPAGO_URL = "https://naveropenapi.apigw.ntruss.com/nmt/v1/translation";
 let apiCallCounter = 0;
 
 // API 호출 카운터 증가
-// 항목: API 호출 카운터
 function increaseApiCounter() {
     console.log("increaseApiCounter() 호출됨");
     apiCallCounter += 1;
 }
 
 // API 호출 카운터값 조회
-// 항목: API 호출 카운터 조회
 function getApiCallCounter() {
     console.log("getApiCallCounter() 호출됨");
     return apiCallCounter;
 }
 
 // 번역 API 호출
-// 항목: 번역 API
 async function callTranslateApi(text, targetLanguage, sourceLanguage) {
     try {
         increaseApiCounter();
@@ -46,33 +43,33 @@ async function callTranslateApi(text, targetLanguage, sourceLanguage) {
     }
 }
 
-// 번역 데이터 DB 조회
-// 항목: 번역 데이터 조회
-async function getTranslationByIdAndLanguage(id, language) {
-    console.log("getTranslationByIdAndLanguage() 호출됨");
+// 번역 데이터 DB 조회(****필드 값이 안맞음 )
+// async function getTranslationByIdAndLanguage(id, language) {
+//     console.log("getTranslationByIdAndLanguage() 호출됨");
 
-    return new Promise((resolve, reject) => {
-        connection.query(
-            "SELECT * FROM translations WHERE id = ? AND language = ?",
-            [id, language], (error, results) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(results[0]);
-                }
-            }
-        );
-    });
-}
+//     return new Promise((resolve, reject) => {
+//         connection.query(
+//             "SELECT * FROM weather_translations_json WHERE id = ?",
+//             [id], (error, results) => {
+//                 if (error) {
+//                     reject(error);
+//                 } else {
+//                     const translations = JSON.parse(results[0].translations);
+//                     resolve(translations[language]);
+//                 }
+//             }
+//         );
+//     });
+// }
+
 
 // 번역 데이터 DB 저장
-// 항목: 번역 데이터 저장
 async function saveTranslation(id, language, text) {
     console.log("saveTranslation() 호출됨");
 
     return new Promise((resolve, reject) => {
         connection.query(
-            "INSERT INTO translations (id, language, text) VALUES (?, ?, ?)",
+            "INSERT INTO weather_translations_json (id, language, updated_date, translations) VALUES (?, ?, NOW(), ?)",
             [id, language, text], (error) => {
                 if (error) {
                     reject(error);
@@ -84,29 +81,10 @@ async function saveTranslation(id, language, text) {
     });
 }
 
-// 번역 처리
-// 항목: 번역 처리
-async function translate(id, text, targetLanguage, sourceLanguage = "ko") {
-    console.log("translate() 호출됨");
 
-    // 1. DB에서 번역 데이터 조회
-    const existingData = await getTranslationByIdAndLanguage(id, targetLanguage);
-
-    // 기존 번역 데이터가 있는 경우, 바로 반환
-    if (existingData) {
-        return existingData.text;
-    }
-
-    // 2. 번역 API 호출
-    const translatedText = await callTranslateApi(text, targetLanguage, sourceLanguage);
-
-    // 3. DB에 번역 결과 저장
-    await saveTranslation(id, targetLanguage, translatedText);
-
-    return translatedText;
-}
-
+// 함수 내보내기
 module.exports = {
-    translate,
-    getApiCallCounter,
-};
+    callTranslateApi,
+    //getTranslationByIdAndLanguage,
+    saveTranslation,
+}

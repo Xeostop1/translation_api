@@ -1,0 +1,60 @@
+노드 js 사용한 이유 : 프론트단에서 js로 서버로 함께 연동할 수 있어서 선택
+
+파일을 분할한 이유:
+1차 작업본은 모두 app.js에서 하여서 에러 잡기가 어려웠음
+2차에는 모두 기능별로 나누어서 진행
+
+db 
+ Field        | Type     | Null | Key | Default | Extra          |
++--------------+----------+------+-----+---------+----------------+
+| id           | int      | NO   | PRI | NULL    | auto_increment |
+| description  | text     | NO   |     | NULL    |                |
+| updated_date | datetime | NO   |     | NULL    |                |
+| translations | text     | NO   |     | NULL    |
+description : 기본 한국어
+updated_date: db에 저장된 날짜 
+translations: json 파일 형식으로 국가명을 key로 설정 
+
+에러 사항
+디비에는 저장되나, 화면 미출력 
+
+
+모든 api에는 호출 카운터 조회기능 추가 → 향후 api 값 한도 이상이면, 중지가능 
+
+
+
+공공데이터 api 
+publicDataApi.js
+getTranslationByIdAndLanguage(dateInput, lang);\
+기존데이터 베이스에 있는 날짜와 매칭하여 번역 데이터 조회 후
+있으면 db 사용
+
+ async function fetchData(dateInput, lang)
+ 언어 및 dateInput에 필요한 날짜 파라미터 사용 
+
+
+번역 api 
+translationUtils.js
+1. callTranslateApi(text, targetLanguage, sourceLanguage) 
+text: 공공 데이터 api 결과값
+targetLanguage: 번역할 언어 
+sourceLanguage: 한국어 
+
+2. saveTranslation(id, language, text) 
+국가별 번역 데이터 넣기 
+
+
+
+
+index관련 js
+main.js
+
+서버 js
+app.js
+
+디비 js 
+db.js
+
+getLatestDateInfo = async (lang)
+마지막 일자 확인후 db에 최신 버전이 있다면 화면에 보여주기 
+
