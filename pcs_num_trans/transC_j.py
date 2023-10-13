@@ -43,9 +43,9 @@ def translate_and_save(df, target_lang, user_dict):
     
     logging.info(f'번역 결과를 "{output_filename}" 파일에 저장함')
 
-# 엑셀 파일 읽기 ('C3' 시트의 'E' 열 데이터만 읽기)
+# **********엑셀 파일 읽기******************
 # df = pd.read_excel('1006_pcs_num.xlsx')
-df = pd.read_excel('1006_pcs_num.xlsx', usecols='C')
+df = pd.read_excel('1013_e.xlsx', usecols='C')
 
 # 중국어 사용자 사전 엑셀 파일 읽기 (영어 -> 중국어)
 df_user_dict_zh = pd.read_excel('ch_user.xlsx')
