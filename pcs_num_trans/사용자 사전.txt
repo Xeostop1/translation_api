@@ -1,3 +1,8 @@
+35분에 시작 400개 45완료 10분 걸림
+
+자주쓰는 함수
+-앞에만 대문자
+=PROPER
 
 
 모나크
@@ -26,7 +31,7 @@ APPING
 Flocking
 
 맨투맨
-Sweatshirt
+SweatShirt
 
 티셔츠
 T-shirt
@@ -51,7 +56,6 @@ BackPack
 토트백팩
 Tote BackPack
 
-
 로고
 logo
 标徽
@@ -64,6 +68,40 @@ logo
 하찌
 RAGLAN KNIT 
 
-Varsity Jacket
-スタジャン
+쭈리
+Rip
 
+푸퍼
+puffer
+
+기모
+Fleece 
+
+데님
+Denim
+
+Kraft
+牛皮纸色
+
+검은색
+黑色
+
+시보리 
+Rip
+
+쭈리
+Terry
+
+은색
+银色
+
+하찌
+삭제
+
+Jenesaisquoi
+
+골지
+Ribbed
+
+카라
+Collar

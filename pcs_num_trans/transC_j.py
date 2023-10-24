@@ -41,22 +41,27 @@ def translate_and_save(df, target_lang, user_dict):
     output_filename = f'translated_words_{target_lang}_{today}.xlsx'
     df_translated.to_excel(output_filename, index=False)
     
+    print("번역결과를 파일로 저장")
     logging.info(f'번역 결과를 "{output_filename}" 파일에 저장함')
 
 # **********엑셀 파일 읽기******************
 # df = pd.read_excel('1006_pcs_num.xlsx')
-df = pd.read_excel('1013_e.xlsx', usecols='C')
+df = pd.read_excel('1024_e.xlsx', usecols='A')
 
 # 중국어 사용자 사전 엑셀 파일 읽기 (영어 -> 중국어)
+print("중국어 번역")
 df_user_dict_zh = pd.read_excel('ch_user.xlsx')
 user_dict_zh = dict(zip(df_user_dict_zh['e'], df_user_dict_zh['c']))
 
 # 중국어로 번역하고 저장
 translate_and_save(df, "ZH", user_dict_zh)
+print("중국어 저장")
 
 # 일본어 사용자 사전 엑셀 파일 읽기 (영어 -> 일본어)
 df_user_dict_ja = pd.read_excel('jp_user.xlsx')
 user_dict_ja = dict(zip(df_user_dict_ja['e'], df_user_dict_ja['j']))
+print("일본어 번역")
 
 # 일본어로 번역하고 저장
 translate_and_save(df, "JA", user_dict_ja)
+print("일본어 저장")
